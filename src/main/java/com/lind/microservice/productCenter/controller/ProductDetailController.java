@@ -1,11 +1,13 @@
 package com.lind.microservice.productCenter.controller;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectReader;
 import com.lind.microservice.productCenter.model.ProductDetail;
 import com.lind.microservice.productCenter.repository.ProductDetailRepository;
 import java.io.IOException;
-import javax.servlet.http.HttpServletRequest;
-import org.springframework.beans.MutablePropertyValues;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,7 +15,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.DataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,21 +36,53 @@ public class ProductDetailController {
   }
 
   @GetMapping("init")
-  public void Init() {
-    ProductDetail detail = new ProductDetail();
-    detail.setProductName("Dan's Book of Writing");
-    detail.setShortDescription("A book about writing books.");
-    detail.setLongDescription("In this book about writing books, Dan will show you how to write a book.");
-    detail.setInventoryId("009178461");
-    repository.save(detail);
+  public ResponseEntity Init() throws IOException {
+    String requestData = "[\n" +
+        "    {\n" +
+        "        \"productId\": 0,\n" +
+        "        \"productName\": \"毛衣机\",\n" +
+        "        \"shortDescription\": \"毛衣机\",\n" +
+        "        \"longDescription\": \"测试产品\",\n" +
+        "        \"inventoryId\": \"1\"\n" +
+        "    },\n" +
+        "    {\n" +
+        "        \"productId\": 0,\n" +
+        "        \"productName\": \"电视\",\n" +
+        "        \"shortDescription\": \"电视\",\n" +
+        "        \"longDescription\": \"测试产品\",\n" +
+        "        \"inventoryId\": \"1\"\n" +
+        "    },\n" +
+        "    {\n" +
+        "        \"productId\": 0,\n" +
+        "        \"productName\": \"电话\",\n" +
+        "        \"shortDescription\": \"电话\",\n" +
+        "        \"longDescription\": \"测试产品\",\n" +
+        "        \"inventoryId\": \"1\"\n" +
+        "    },\n" +
+        "    {\n" +
+        "        \"productId\": 0,\n" +
+        "        \"productName\": \"test\",\n" +
+        "        \"shortDescription\": \"测试产品\",\n" +
+        "        \"longDescription\": \"测试产品\",\n" +
+        "        \"inventoryId\": \"1\"\n" +
+        "    },\n" +
+        "    {\n" +
+        "        \"productId\": 0,\n" +
+        "        \"productName\": \"修改了123456\",\n" +
+        "        \"shortDescription\": \"修改了测试产品123456\",\n" +
+        "        \"longDescription\": \"修改了测试产品\",\n" +
+        "        \"inventoryId\": \"1\"\n" +
+        "    }\n" +
+        "]";
+    List<ProductDetail> list = objectMapper.readValue(requestData,
+        new TypeReference<List<ProductDetail>>() {
+        });
+    repository.saveAll(list);
     for (ProductDetail productDetail : repository.findAll()) {
       System.out.println(productDetail.getProductId());
     }
-  }
+    return new ResponseEntity<>(HttpStatus.ACCEPTED);
 
-  @RequestMapping(method = RequestMethod.POST)
-  public ProductDetail create(@RequestBody ProductDetail detail) {
-    return repository.save(detail);
   }
 
   @RequestMapping(method = RequestMethod.GET)
@@ -62,7 +95,7 @@ public class ProductDetailController {
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-  public ProductDetail find(@PathVariable String id) {
+  public ProductDetail find(@PathVariable int id) {
     ProductDetail detail = repository.findById(id).get();
     if (detail == null) {
       throw new IllegalArgumentException();
@@ -71,27 +104,25 @@ public class ProductDetailController {
     }
   }
 
-  @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-  public HttpEntity update(@PathVariable String id, HttpServletRequest request) throws IOException {
-    ProductDetail existing = find(id);
-    ProductDetail updated = objectMapper.readerForUpdating(existing).readValue(request.getReader());
-    MutablePropertyValues propertyValues = new MutablePropertyValues();
-    propertyValues.add("productId", updated.getProductId());
-    propertyValues.add("productName", updated.getProductName());
-    propertyValues.add("shortDescription", updated.getShortDescription());
-    propertyValues.add("longDescription", updated.getLongDescription());
-    propertyValues.add("inventoryId", updated.getInventoryId());
-    DataBinder binder = new DataBinder(updated);
+  @RequestMapping(method = RequestMethod.POST)
+  public ProductDetail create(@RequestBody ProductDetail detail) {
+    return repository.save(detail);
+  }
 
-    if (binder.getBindingResult().hasErrors()) {
-      return new ResponseEntity<>(binder.getBindingResult().getAllErrors(), HttpStatus.BAD_REQUEST);
-    } else {
-      return new ResponseEntity<>(updated, HttpStatus.ACCEPTED);
-    }
+  @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+  public HttpEntity update(@PathVariable int id, @RequestBody ProductDetail productDetail)
+      throws IOException {
+    ProductDetail existing = repository.findById(id).get();
+    objectMapper.setSerializationInclusion(JsonInclude.Include.NON_DEFAULT);
+    String outJson = objectMapper.writeValueAsString(productDetail);
+    ObjectReader objectReader = objectMapper.readerForUpdating(existing);
+    objectReader.readValue(outJson);
+    repository.save(existing);
+    return new ResponseEntity<>(existing, HttpStatus.ACCEPTED);
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-  public HttpEntity delete(@PathVariable String id) {
+  public HttpEntity delete(@PathVariable int id) {
     ProductDetail detail = find(id);
     repository.delete(detail);
     return new ResponseEntity<>(HttpStatus.ACCEPTED);
