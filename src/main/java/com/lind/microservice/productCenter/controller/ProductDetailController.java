@@ -43,35 +43,35 @@ public class ProductDetailController {
         "        \"productName\": \"毛衣机\",\n" +
         "        \"shortDescription\": \"毛衣机\",\n" +
         "        \"longDescription\": \"测试产品\",\n" +
-        "        \"inventoryId\": \"1\"\n" +
+        "        \"inventory\": 10,\n" +
         "    },\n" +
         "    {\n" +
         "        \"productId\": 0,\n" +
         "        \"productName\": \"电视\",\n" +
         "        \"shortDescription\": \"电视\",\n" +
         "        \"longDescription\": \"测试产品\",\n" +
-        "        \"inventoryId\": \"1\"\n" +
+        "        \"inventory\": 10,\n" +
         "    },\n" +
         "    {\n" +
         "        \"productId\": 0,\n" +
         "        \"productName\": \"电话\",\n" +
         "        \"shortDescription\": \"电话\",\n" +
         "        \"longDescription\": \"测试产品\",\n" +
-        "        \"inventoryId\": \"1\"\n" +
+        "        \"inventory\": 10,\n" +
         "    },\n" +
         "    {\n" +
         "        \"productId\": 0,\n" +
         "        \"productName\": \"test\",\n" +
         "        \"shortDescription\": \"测试产品\",\n" +
         "        \"longDescription\": \"测试产品\",\n" +
-        "        \"inventoryId\": \"1\"\n" +
+        "        \"inventory\": 10,\n" +
         "    },\n" +
         "    {\n" +
         "        \"productId\": 0,\n" +
         "        \"productName\": \"修改了123456\",\n" +
         "        \"shortDescription\": \"修改了测试产品123456\",\n" +
         "        \"longDescription\": \"修改了测试产品\",\n" +
-        "        \"inventoryId\": \"1\"\n" +
+        "        \"inventory\": 10,\n" +
         "    }\n" +
         "]";
     List<ProductDetail> list = objectMapper.readValue(requestData,
