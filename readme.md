@@ -1,2 +1,21 @@
 ## productCenter项目
 它属于大叔springboot的微服务项目之一，托管在github上。
+## 主要包括以下功能
+* 商品管理API
+* 数据仓储mysql
+* 模型校验
+## 主要用到以下技术框架
+* springboot框架
+* rabbitmq异步消息
+* cache缓存拦截
+* mongodb存储贴子
+* redis存储热点数据
+* eureka注入
+* configserver配置中心
+## docker-compose一键部署本地环境
+* rabbit
+* mongodb
+* redis
+* mysql
+* configserver
+* eureka
