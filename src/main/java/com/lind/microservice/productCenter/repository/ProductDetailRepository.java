@@ -21,7 +21,7 @@ public interface ProductDetailRepository extends
 
   @Transactional
   @Modifying
-  @Query("UPDATE ProductDetail p SET p.shortDescription = ?2 WHERE p.productId = ?1")
+  @Query("UPDATE ProductDetail p SET p.shortDescription = ?2 WHERE p.id = ?1")
   void updateDescrption(int id, String description);
 
 }
