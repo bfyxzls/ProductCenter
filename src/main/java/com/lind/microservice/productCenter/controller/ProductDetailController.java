@@ -8,6 +8,7 @@ import com.lind.microservice.productCenter.model.ProductDetail;
 import com.lind.microservice.productCenter.repository.ProductDetailRepository;
 import java.io.IOException;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -105,12 +106,12 @@ public class ProductDetailController {
   }
 
   @RequestMapping(method = RequestMethod.POST)
-  public ProductDetail create(@RequestBody ProductDetail detail) {
+  public ProductDetail create(@RequestBody @Valid ProductDetail detail) {
     return repository.save(detail);
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-  public HttpEntity update(@PathVariable int id, @RequestBody ProductDetail productDetail)
+  public HttpEntity update(@PathVariable int id, @RequestBody @Valid ProductDetail productDetail)
       throws IOException {
     ProductDetail existing = repository.findById(id).get();
     objectMapper.setSerializationInclusion(JsonInclude.Include.NON_DEFAULT);

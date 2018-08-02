@@ -1,0 +1,74 @@
+version: "3.3"
+services:
+  eureka-server:
+    build: ./eureka-server
+    restart: on-failure
+    depends_on:
+      - config-server
+    ports:
+      - "8761:8761"
+      - "8762:8762"
+    environment:
+      - JAVA_OPTIONS=-server -XX:-HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/pilipa/ -Duser.timezone=Asia/Hong_Kong
+      - CONFIG_SERVER_URL=http://config-server:8888
+    networks:
+      - lind-dev
+
+  config-server:
+    build: ./config-server
+    ports:
+      - "8888:8888"
+      - "8889:8889"
+    volumes:
+      # 替换成本地config-repo仓库地址
+      - ${configRepo}:/Users/kane/git/pilipa/config-repo
+    environment:
+      - JAVA_OPTIONS=-server -XX:-HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/pilipa/ -Duser.timezone=Asia/Hong_Kong
+      - spring.rabbitmq.addresses=rabbit:5672
+    networks:
+      - lind-dev
+
+  mongo:
+    image: mongo:3.4.10
+    ports:
+      - "27017:27017"
+    networks:
+      - lind-dev
+    volumes:
+      - mongo_data:/data/db
+
+  redis:
+    image: redis:3.2-alpine
+    networks:
+      - lind-dev
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  rabbit:
+    build: ./rabbitmq
+    hostname: rabbit
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+      - "61613:61613"
+    networks:
+      - lind-dev
+    environment:
+      - RABBITMQ_DEFAULT_VHOST=lind
+
+  zipkin:
+    image: openzipkin/zipkin
+    networks:
+      - lind-dev
+    ports:
+      - "9411:9411"
+
+networks:
+  lind-dev:
+    driver: bridge
+
+volumes:
+  redis_data:
+  mongo_data:
