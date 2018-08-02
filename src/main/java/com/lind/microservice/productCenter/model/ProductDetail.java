@@ -1,6 +1,5 @@
 package com.lind.microservice.productCenter.model;
 
-import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,10 +16,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @Entity
-public class ProductDetail implements Serializable {
-  @Id
-  @GeneratedValue
-  private int productId;
+public class ProductDetail extends EntityBase {
 
   @NotNull(message = "产品名称不能为空")
   private String productName;
