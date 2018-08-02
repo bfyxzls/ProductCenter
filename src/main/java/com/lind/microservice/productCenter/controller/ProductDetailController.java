@@ -40,35 +40,35 @@ public class ProductDetailController {
   public ResponseEntity Init() throws IOException {
     String requestData = "[\n" +
         "    {\n" +
-        "        \"productId\": 0,\n" +
+        "        \"id\": 0,\n" +
         "        \"productName\": \"毛衣机\",\n" +
         "        \"shortDescription\": \"毛衣机\",\n" +
         "        \"longDescription\": \"测试产品\",\n" +
         "        \"inventory\": 10,\n" +
         "    },\n" +
         "    {\n" +
-        "        \"productId\": 0,\n" +
+        "        \"id\": 0,\n" +
         "        \"productName\": \"电视\",\n" +
         "        \"shortDescription\": \"电视\",\n" +
         "        \"longDescription\": \"测试产品\",\n" +
         "        \"inventory\": 10,\n" +
         "    },\n" +
         "    {\n" +
-        "        \"productId\": 0,\n" +
+        "        \"id\": 0,\n" +
         "        \"productName\": \"电话\",\n" +
         "        \"shortDescription\": \"电话\",\n" +
         "        \"longDescription\": \"测试产品\",\n" +
         "        \"inventory\": 10,\n" +
         "    },\n" +
         "    {\n" +
-        "        \"productId\": 0,\n" +
+        "        \"id\": 0,\n" +
         "        \"productName\": \"test\",\n" +
         "        \"shortDescription\": \"测试产品\",\n" +
         "        \"longDescription\": \"测试产品\",\n" +
         "        \"inventory\": 10,\n" +
         "    },\n" +
         "    {\n" +
-        "        \"productId\": 0,\n" +
+        "        \"id\": 0,\n" +
         "        \"productName\": \"修改了123456\",\n" +
         "        \"shortDescription\": \"修改了测试产品123456\",\n" +
         "        \"longDescription\": \"修改了测试产品\",\n" +
@@ -80,7 +80,7 @@ public class ProductDetailController {
         });
     repository.saveAll(list);
     for (ProductDetail productDetail : repository.findAll()) {
-      System.out.println(productDetail.getProductId());
+      System.out.println(productDetail.getId());
     }
     return new ResponseEntity<>(HttpStatus.ACCEPTED);
 
@@ -91,7 +91,7 @@ public class ProductDetailController {
                           @RequestParam(value = "count", defaultValue = "10", required = false) int count,
                           @RequestParam(value = "order", defaultValue = "ASC", required = false) Sort.Direction direction,
                           @RequestParam(value = "sort", defaultValue = "productName", required = false) String sortProperty) {
-    Page result = repository.findAll(new PageRequest(page, count, new Sort(direction, sortProperty)));
+    Page result = repository.findAll(PageRequest.of(page, count, new Sort(direction, sortProperty)));
     return result.getContent();
   }
 
