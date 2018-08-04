@@ -11,9 +11,11 @@ import com.lind.microservice.productCenter.repository.OrderInfoRepository;
 import com.lind.microservice.productCenter.repository.OrderItemRepository;
 import com.lind.microservice.productCenter.repository.ProductDetailRepository;
 import com.lind.microservice.productCenter.repository.UserInfoRepository;
+import io.swagger.annotations.ApiOperation;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/orders")
+@Slf4j
 public class OrderController {
 
   @Autowired
@@ -42,6 +45,7 @@ public class OrderController {
    * 模拟一个用户，下一个订单
    */
   @GetMapping("/init")
+  @ApiOperation(value = "初始化")
   public void init() {
     UserInfo userInfo = UserInfo.builder()
         .email("bfyxzls@sina.com")
@@ -97,13 +101,17 @@ public class OrderController {
         .productName(productDetail2.getProductName())
         .build());
     orderItemRepository.saveAll(orderItems);
+    log.debug("订单初始化{}", orderInfo);
+
   }
 
+  @ApiOperation(value = "订单列表")
   @GetMapping("{id}")
   public List<OrderList> getOrderList(@PathVariable int id) {
     return orderInfoRepository.getOrderInfoByUser(id);
   }
 
+  @ApiOperation(value = "订单详细")
   @GetMapping("{id}/items")
   public List<OrderItem> getOrderItem(@PathVariable int id) {
     return orderItemRepository.findByOrderId(id);
@@ -114,8 +122,10 @@ public class OrderController {
     return orderInfoRepository.getOrderInfos();
   }
 
+  @ApiOperation(value = "删除订单")
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
   public ResponseEntity del(int id) {
+    log.info("删除订单 {}", id);
     orderInfoRepository.delOrder(id);
     orderItemRepository.delOrderItems(id);
     return new ResponseEntity<>(HttpStatus.ACCEPTED);
