@@ -47,6 +47,9 @@ dependencies {
     runtime('mysql:mysql-connector-java')
     compileOnly('org.projectlombok:lombok')
 
+    testCompile('org.springframework.boot:spring-boot-starter-webflux')
+
+
 }
 
 dependencyManagement {

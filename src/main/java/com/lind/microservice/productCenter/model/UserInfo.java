@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class UserInfo extends EntityBase {
+public class UserInfo {
   @Id
   @GeneratedValue
   private int id;

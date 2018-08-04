@@ -17,7 +17,7 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderItem extends EntityBase {
+public class OrderItem {
   @Id
   @GeneratedValue
   private int id;

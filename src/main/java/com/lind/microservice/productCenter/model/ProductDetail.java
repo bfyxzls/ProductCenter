@@ -18,7 +18,7 @@ import lombok.ToString;
 @Setter
 @Builder
 @Entity
-public class ProductDetail extends EntityBase {
+public class ProductDetail {
   @Id
   @GeneratedValue
   private int id;
@@ -36,7 +36,7 @@ public class ProductDetail extends EntityBase {
   private int inventory;
 
   @Min(value = 0, message = "价格不能小于0")
-  private  double salePrice;
+  private double salePrice;
 
-  private  int discount;
+  private int discount;
 }
