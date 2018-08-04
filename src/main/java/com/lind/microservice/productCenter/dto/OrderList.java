@@ -1,5 +1,6 @@
 package com.lind.microservice.productCenter.dto;
 
+import com.lind.microservice.productCenter.enums.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,7 +18,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderList {
-  public int id;
+  public int orderId;
+
+  public int orderItemId;
 
   private int userId;
 
@@ -31,4 +34,5 @@ public class OrderList {
 
   private double salePrice;
 
+  private OrderStatus orderStatus;
 }

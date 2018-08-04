@@ -1,5 +1,6 @@
 package com.lind.microservice.productCenter.model;
 
+import com.lind.microservice.productCenter.enums.OrderStatus;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +19,8 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderInfo extends EntityBase {
+public class OrderInfo {
+
   @Id
   @GeneratedValue
   private int id;
@@ -34,4 +36,6 @@ public class OrderInfo extends EntityBase {
   private String shippingAddress;
 
   private Date orderTime;
+
+  private OrderStatus orderStatus;
 }
