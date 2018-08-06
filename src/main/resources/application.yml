@@ -10,6 +10,14 @@ spring:
       show-sql: true #显示后台处理的SQL语句
       hibernate:
         ddl-auto: update #自动检查实体和数据库表是否一致，如果不一致则会进行更新数据库表
-
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: pilipa
 server:
  port: 9090
+
+
+
