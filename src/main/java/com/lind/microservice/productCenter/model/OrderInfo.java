@@ -1,5 +1,6 @@
 package com.lind.microservice.productCenter.model;
 
+import com.lind.microservice.productCenter.annotation.MinMoney;
 import com.lind.microservice.productCenter.enums.OrderStatus;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -13,6 +14,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.javamoney.moneta.Money;
 
 @Entity
 @Getter

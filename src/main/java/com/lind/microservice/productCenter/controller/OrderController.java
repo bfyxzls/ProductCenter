@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
+import org.javamoney.moneta.Money;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -84,7 +85,7 @@ public class OrderController {
     OrderInfo orderInfo = OrderInfo.builder()
         .orderTime(new Date())
         .shippingName("zzl")
-        .total(99)
+        .total(79)
         .userId(userInfo.getId())
         .userName(userInfo.getUserName())
         .orderStatus(OrderStatus.RECEIVED)

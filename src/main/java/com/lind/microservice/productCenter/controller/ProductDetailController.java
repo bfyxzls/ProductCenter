@@ -40,57 +40,6 @@ public class ProductDetailController {
     this.objectMapper = objectMapper;
   }
 
-  @ApiOperation(value = "初始化")
-  @GetMapping("init")
-  public ResponseEntity Init() throws IOException {
-    String requestData = "[\n" +
-        "    {\n" +
-        "        \"id\": 0,\n" +
-        "        \"productName\": \"毛衣机\",\n" +
-        "        \"shortDescription\": \"毛衣机\",\n" +
-        "        \"longDescription\": \"测试产品\",\n" +
-        "        \"inventory\": 10,\n" +
-        "    },\n" +
-        "    {\n" +
-        "        \"id\": 0,\n" +
-        "        \"productName\": \"电视\",\n" +
-        "        \"shortDescription\": \"电视\",\n" +
-        "        \"longDescription\": \"测试产品\",\n" +
-        "        \"inventory\": 10,\n" +
-        "    },\n" +
-        "    {\n" +
-        "        \"id\": 0,\n" +
-        "        \"productName\": \"电话\",\n" +
-        "        \"shortDescription\": \"电话\",\n" +
-        "        \"longDescription\": \"测试产品\",\n" +
-        "        \"inventory\": 10,\n" +
-        "    },\n" +
-        "    {\n" +
-        "        \"id\": 0,\n" +
-        "        \"productName\": \"test\",\n" +
-        "        \"shortDescription\": \"测试产品\",\n" +
-        "        \"longDescription\": \"测试产品\",\n" +
-        "        \"inventory\": 10,\n" +
-        "    },\n" +
-        "    {\n" +
-        "        \"id\": 0,\n" +
-        "        \"productName\": \"修改了123456\",\n" +
-        "        \"shortDescription\": \"修改了测试产品123456\",\n" +
-        "        \"longDescription\": \"修改了测试产品\",\n" +
-        "        \"inventory\": 10,\n" +
-        "    }\n" +
-        "]";
-    List<ProductDetail> list = objectMapper.readValue(requestData,
-        new TypeReference<List<ProductDetail>>() {
-        });
-    repository.saveAll(list);
-    for (ProductDetail productDetail : repository.findAll()) {
-      System.out.println(productDetail.getId());
-    }
-    return new ResponseEntity<>(HttpStatus.ACCEPTED);
-
-  }
-
   @ApiOperation(value = "列表")
   @RequestMapping(method = RequestMethod.GET)
   public Iterable findAll(@ApiParam("页码") @RequestParam(value = "page", defaultValue = "0", required = false) int page,
@@ -114,7 +63,7 @@ public class ProductDetailController {
 
   @ApiOperation(value = "添加")
   @RequestMapping(method = RequestMethod.POST)
-  public ProductDetail create(@ApiParam("商品对象") @RequestBody @Valid ProductDetail detail) {
+  public ProductDetail create(@ApiParam("商品对象") @RequestBody ProductDetail detail) {
     return repository.save(detail);
   }
 
