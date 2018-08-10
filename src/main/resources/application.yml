@@ -1,5 +1,6 @@
 spring:
   application.name: lind-productCenter
+  profiles.active: dev
 
   rabbitmq:
     host: localhost
@@ -11,15 +12,12 @@ server:
  port: 9090
 ---
 spring:
-  profiles: development
+  profiles: dev
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/productCenter?useSSL=false&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
     username: root
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
-    platform: h2
-    schema: classpath:schema.sql
-    data: classpath:data.sql
   jpa:
       database: MYSQL
       show-sql: true #显示后台处理的SQL语句
