@@ -1,6 +1,6 @@
 spring:
   application.name: lind-productCenter
-  profiles.active: dev
+  profiles.active: hazelcast-cache
 
   rabbitmq:
     host: localhost
@@ -10,6 +10,8 @@ spring:
     virtual-host: pilipa
 server:
  port: 9090
+logging.level.org.springframework.web: DEBUG
+
 ---
 spring:
   profiles: dev
@@ -24,6 +26,9 @@ spring:
       hibernate:
         ddl-auto: update #自动检查实体和数据库表是否一致，如果不一致则会进行更新数据库表
 
+  server.tomcat.compression: on
+  server.tomcat.compressableMimeTypes: application/json,application/xml
+
 ---
 spring:
   profiles: test
@@ -34,5 +39,5 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
 

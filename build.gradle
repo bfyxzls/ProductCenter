@@ -44,17 +44,28 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-mongodb')
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+   
+    compile("org.springframework.boot:spring-boot-starter-cache")
+    compile("com.hazelcast:hazelcast:3.7.4")
+    compile("com.hazelcast:hazelcast-spring:3.7.4")
     compileOnly('org.projectlombok:lombok')
     compile('io.springfox:springfox-swagger2:2.6.1')
     compile('io.springfox:springfox-swagger-ui:2.6.1')
     compile('org.javamoney:moneta:1.1')
     compile('org.zalando:jackson-datatype-money:1.0.0-RC2')
+    compile('commons-lang:commons-lang:2.6')
+    compile("org.aspectj:aspectjweaver:1.8.8")
 
     testCompile('org.springframework.boot:spring-boot-starter-webflux')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 
     runtime('com.h2database:h2')
     runtime('mysql:mysql-connector-java')
+    compile('com.lind:core:0.0.2')
+}
+
+bootRun {
+    systemProperty "spring.profiles.active", "hazelcast-cache"
 }
 
 dependencyManagement {

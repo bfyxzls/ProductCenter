@@ -1,4 +1,4 @@
-package com.lind.microservice.productCenter;
+package com.lind.microservice.productCenter.config;
 
 import org.javamoney.moneta.Money;
 import org.springframework.context.annotation.Bean;

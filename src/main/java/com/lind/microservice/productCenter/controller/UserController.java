@@ -5,12 +5,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.lind.microservice.productCenter.model.UserInfo;
 import com.lind.microservice.productCenter.repository.UserInfoRepository;
+import com.lind.microservice.productCenter.repository.UserRepository;
 import java.io.IOException;
+import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +27,20 @@ public class UserController {
   UserInfoRepository userInfoRepository;
   @Autowired
   ObjectMapper objectMapper;
+
+  @Autowired
+  private UserRepository userRepository;
+
+  @RequestMapping(path = "all/{username}", method = RequestMethod.GET)
+  public List<UserInfo> fetchUsers(@PathVariable String username) {
+    List<UserInfo> userInfos = userRepository.fetchAllUsers(username);
+    return userInfos;
+  }
+
+  @GetMapping()
+  public String users() {
+    throw new IllegalArgumentException();
+  }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
   public UserInfo find(@PathVariable int id) {
