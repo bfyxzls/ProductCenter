@@ -50,5 +50,10 @@ public class HomeController {
   public Response create() {
     return new Response();
   }
+
+  @GetMapping("product/upload")
+  public Response upload() {
+    return new Response();
+  }
 }
 

@@ -1,5 +1,7 @@
 package com.lind.microservice.productCenter;
 
+import org.javamoney.moneta.Money;
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -13,10 +15,20 @@ public class UserControllerTest extends BaseControllerTest {
     getOk();
   }
 
+  @Test
+  public void modify_name() {
+    http.put()
+        .uri("/users/modify-name/1/zzl")
+        .exchange()
+        .expectStatus().isOk();
+  }
+
   private WebTestClient.ResponseSpec getOk() {
     return http.get()
         .uri("/users/all/zzl")
         .exchange()
         .expectStatus().isOk();
   }
+
+
 }

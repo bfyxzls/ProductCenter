@@ -1,6 +1,6 @@
 spring:
   application.name: lind-productCenter
-  profiles.active: hazelcast-cache
+  profiles.active: test #hazelcast-cache
 
   rabbitmq:
     host: localhost

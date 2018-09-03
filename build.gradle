@@ -54,10 +54,14 @@ dependencies {
     compile('org.javamoney:moneta:1.1')
     compile('org.zalando:jackson-datatype-money:1.0.0-RC2')
     compile('commons-lang:commons-lang:2.6')
-    compile("org.aspectj:aspectjweaver:1.8.8")
+
+    compile("org.springframework.boot:spring-boot-starter-aop")
 
     testCompile('org.springframework.boot:spring-boot-starter-webflux')
     testCompile('org.springframework.boot:spring-boot-starter-test')
+
+    compile('org.springframework.boot:spring-boot-starter-data-redis')
+
 
     runtime('com.h2database:h2')
     runtime('mysql:mysql-connector-java')

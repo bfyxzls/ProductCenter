@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -30,6 +33,8 @@ public class UserController {
 
   @Autowired
   private UserRepository userRepository;
+  @Autowired
+  private StringRedisTemplate redisTemplate;
 
   @RequestMapping(path = "all/{username}", method = RequestMethod.GET)
   public List<UserInfo> fetchUsers(@PathVariable String username) {
@@ -38,8 +43,16 @@ public class UserController {
   }
 
   @GetMapping()
-  public String users() {
-    throw new IllegalArgumentException();
+  public List<UserInfo> users() {
+
+    // init redis data.
+    ValueOperations<String, String> ops = this.redisTemplate.opsForValue();
+    String key = "spring.boot.redis.test";
+    if (!this.redisTemplate.hasKey(key)) {
+      ops.set(key, "foo");
+    }
+
+    return userRepository.fetchAllUsers();
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -73,6 +86,11 @@ public class UserController {
   public HttpEntity delete(@PathVariable int id) {
     UserInfo userInfo = userInfoRepository.findById(id).get();
     userInfoRepository.delete(userInfo);
+    return new ResponseEntity<>(HttpStatus.ACCEPTED);
+  }
+
+  @RequestMapping(value = "/modify-name/{id}", method = RequestMethod.PUT)
+  public HttpEntity modifyUserName(@PathVariable int id, @RequestParam String name) {
     return new ResponseEntity<>(HttpStatus.ACCEPTED);
   }
 }
