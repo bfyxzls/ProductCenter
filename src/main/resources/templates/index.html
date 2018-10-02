@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content="云收藏 | 让收藏更简单 |收藏夹 |网络收藏夹"/>
+    <meta name="author" content=""/>
+    <meta http-equiv="refresh" content="6;url=/lookAround" />
+
+    <title>云收藏 | 让收藏更简单</title>
+    <link rel="icon" href="/img/icon.ico" type="image/x-icon" />
+    <!-- Bootstrap Core CSS -->
+    <link href="index/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Theme CSS -->
+    <link href="index/css/freelancer.min.css" rel="stylesheet" />
+
+    <!-- Custom Fonts -->
+    <link href="index/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+    <style>
+        #portfolio .portfolio-item .portfolio-link .caption .caption-content{ top:36%;}
+        #portfolio .portfolio-item .portfolio-link .caption .caption-content p{ font-size:16px; line-height:24px; margin:24px 16px 0;}
+        #portfolio .portfolio-item .portfolio-link{ height: 260px; overflow:hidden; }
+        #portfolio .portfolio-item:nth-child(1) .portfolio-link{ background: #ba4c63;}
+        #portfolio .portfolio-item:nth-child(2) .portfolio-link{ background: #1fa4b6;}
+        #portfolio .portfolio-item:nth-child(3) .portfolio-link{ background: #f8a3a3;}
+        #portfolio .portfolio-item:nth-child(4) .portfolio-link{ background: #1d83c1;}
+        #portfolio .portfolio-item:nth-child(5) .portfolio-link{ background: #18bc9c;}
+        #portfolio .portfolio-item:nth-child(6) .portfolio-link{ background: #ccb2a3;}
+        #portfolio .portfolio-item .portfolio-link .img-responsive{ width: 180px; height: 180px; display: block; border-radius: 50%; margin: 40px auto; }
+    </style>
+
+
+</head>
+
+<body id="page-top" class="index">
+hello world!
+<a href="/login" th:unless="${loginUserInfo != null}">登录</a>
+<a href="/" th:if="${loginUserInfo != null}" th:text="${loginUserInfo.userName}" class="userName"></a>
+
+<div th:if="${not #lists.isEmpty(peoples)}">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">列表</h3>
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                <li class="list-group-item" th:each="person : ${peoples}">
+                    <span th:text="${person.userName}"></span>
+                    <span th:text="${person.age}"></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
