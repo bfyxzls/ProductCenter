@@ -1,4 +1,4 @@
-package com.lind.microservice.productCenter;
+package com.lind.microservice.productCenter.config;
 
 import com.google.common.base.Predicate;
 import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;
