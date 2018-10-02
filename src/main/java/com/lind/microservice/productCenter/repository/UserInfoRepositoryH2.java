@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 @Repository
-@Profile("test")
 public class UserInfoRepositoryH2 implements UserRepository {
 
   @Override

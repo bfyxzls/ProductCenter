@@ -21,7 +21,7 @@ public class OrderSubscriber {
    *
    * @param message voucherMessage.
    */
-  @RabbitListener(queues = AmqpConst.ORDER_GENERATE_ROUTEKEY)
+  @RabbitListener(queues =AmqpConfig.LIND_GENERATE_ORDER)
   public void receiveNoteCoreVoucherMessage(@Payload String message) throws IOException {
     OrderInfo orderInfoMessage = objectMapper.readValue(message, OrderInfo.class);
     log.debug("receive a generate order request", orderInfoMessage
