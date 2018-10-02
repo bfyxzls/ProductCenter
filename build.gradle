@@ -46,8 +46,6 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')
    
     compile("org.springframework.boot:spring-boot-starter-cache")
-    compile("com.hazelcast:hazelcast:3.7.4")
-    compile("com.hazelcast:hazelcast-spring:3.7.4")
     compileOnly('org.projectlombok:lombok')
     compile('io.springfox:springfox-swagger2:2.6.1')
     compile('io.springfox:springfox-swagger-ui:2.6.1')
@@ -65,7 +63,6 @@ dependencies {
 
     runtime('com.h2database:h2')
     runtime('mysql:mysql-connector-java')
-    compile('com.lind:core:0.0.2')
 }
 
 bootRun {
