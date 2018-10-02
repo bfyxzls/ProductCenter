@@ -1,33 +1,24 @@
 spring:
   application.name: lind-productCenter
-  profiles.active: test #hazelcast-cache
 
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
-    virtual-host: pilipa
-server:
- port: 9090
-logging.level.org.springframework.web: DEBUG
-
----
-spring:
-  profiles: dev
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/productCenter?useSSL=false&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/productCenter?useSSL=false&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
     username: root
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
   jpa:
       database: MYSQL
-      show-sql: true #显示后台处理的SQL语句
+      show-sql: true
       hibernate:
-        ddl-auto: update #自动检查实体和数据库表是否一致，如果不一致则会进行更新数据库表
-
-  server.tomcat.compression: on
-  server.tomcat.compressableMimeTypes: application/json,application/xml
+        ddl-auto: update
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: lind
+server:
+ port: 9090
 
 ---
 spring:
@@ -40,4 +31,3 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: create-drop
-
