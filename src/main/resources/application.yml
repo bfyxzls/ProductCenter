@@ -1,15 +1,21 @@
 spring:
   application.name: lind-productCenter
+
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/productCenter?useSSL=false&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/productCenter?useSSL=false&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
     username: root
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
   jpa:
       database: MYSQL
-      show-sql: true #显示后台处理的SQL语句
+      show-sql: true
       hibernate:
-        ddl-auto: update #自动检查实体和数据库表是否一致，如果不一致则会进行更新数据库表
-
+        ddl-auto: update
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: lind
 server:
  port: 9090
