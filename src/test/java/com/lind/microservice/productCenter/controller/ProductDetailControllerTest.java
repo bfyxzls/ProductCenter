@@ -1,5 +1,6 @@
-package com.lind.microservice.productCenter;
+package com.lind.microservice.productCenter.controller;
 
+import com.lind.microservice.productCenter.controller.BaseControllerTest;
 import com.lind.microservice.productCenter.model.ProductDetail;
 import org.junit.Test;
 import org.springframework.web.reactive.function.BodyInserters;

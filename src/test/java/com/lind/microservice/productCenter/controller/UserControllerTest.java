@@ -1,7 +1,6 @@
-package com.lind.microservice.productCenter;
+package com.lind.microservice.productCenter.controller;
 
-import org.javamoney.moneta.Money;
-import org.junit.Assert;
+import com.lind.microservice.productCenter.controller.BaseControllerTest;
 import org.junit.Test;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;

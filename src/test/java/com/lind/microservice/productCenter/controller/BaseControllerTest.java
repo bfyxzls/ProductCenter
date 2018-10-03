@@ -1,4 +1,4 @@
-package com.lind.microservice.productCenter;
+package com.lind.microservice.productCenter.controller;
 
 import java.time.Duration;
 import org.junit.Before;

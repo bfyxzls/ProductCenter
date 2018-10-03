@@ -1,9 +1,7 @@
 package com.lind.microservice.productCenter.controller;
 
 import com.lind.microservice.productCenter.result.Response;
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,17 +22,6 @@ public class HomeController {
 
   @RequestMapping(value = "index", method = RequestMethod.GET)
   public Response index(Model model) throws IOException {
-    log.info("lind set log level.");
-
-    String fileName = "test.json";
-    ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-    String file1 = classLoader.getResource(fileName).getFile();
-    File file = new File(file1);
-    //Read File Content
-    String content = new String(Files.readAllBytes(file.toPath()));
-    System.out.println(content);
-
-
     Map<String, String> loginUserInfo = new HashMap<>();
     loginUserInfo.put("userName", "test");
     loginUserInfo.put("age", "35");

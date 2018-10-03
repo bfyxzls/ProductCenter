@@ -9,8 +9,8 @@ services:
       - "8761:8761"
       - "8762:8762"
     environment:
-      - JAVA_OPTIONS=-server -XX:-HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/pilipa/ -Duser.timezone=Asia/Hong_Kong
-      - CONFIG_SERVER_URL=http://config-server:8888
+      - JAVA_OPTIONS: -server -XX:-HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/pilipa/ -Duser.timezone=Asia/Hong_Kong
+      - CONFIG_SERVER_URL: http://config-server:8888
     networks:
       - lind-dev
 
@@ -23,8 +23,8 @@ services:
       # 替换成本地config-repo仓库地址
       - ${configRepo}:/Users/kane/git/pilipa/config-repo
     environment:
-      - JAVA_OPTIONS=-server -XX:-HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/pilipa/ -Duser.timezone=Asia/Hong_Kong
-      - spring.rabbitmq.addresses=rabbit:5672
+      - JAVA_OPTIONS: -server -XX:-HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/pilipa/ -Duser.timezone=Asia/Hong_Kong
+      - spring.rabbitmq.addresses: rabbit:5672
     networks:
       - lind-dev
 
@@ -56,7 +56,7 @@ services:
     networks:
       - lind-dev
     environment:
-      - RABBITMQ_DEFAULT_VHOST=lind
+      - RABBITMQ_DEFAULT_VHOST: lind
 
   zipkin:
     image: openzipkin/zipkin
